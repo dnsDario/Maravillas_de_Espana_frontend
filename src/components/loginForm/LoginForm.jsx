@@ -18,12 +18,7 @@ export default function LoginForm() {
   
   
   function doLogin(datos) {
-    let ruta = "";
-    if (process.env.REACT_APP_rutaVercel) {
-      ruta = process.env.REACT_APP_rutaVercel;
-    } else {
-      ruta = process.env.REACT_APP_rutaLocal;
-    }
+    let ruta = process.env.REACT_APP_rutaVercel || process.env.REACT_APP_rutaLocal || 'http://localhost:3000';
     axios
       .post(`${ruta}/api/users/login`, datos)
       .then((response) => {
