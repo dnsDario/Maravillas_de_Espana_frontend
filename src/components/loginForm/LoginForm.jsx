@@ -22,10 +22,10 @@ export default function LoginForm() {
   } else {
     ruta = rutaLocal; 
   } */
-console.log('la ruta del backend es: ', ruta);
+console.log('la ruta del backend es: ', 'https://maravillas-de-espana-backend.vercel.app');
   function doLogin(datos) {
     axios
-      .post(`${ruta}/api/users/login`, datos)
+      .post(`https://maravillas-de-espana-backend.vercel.app/api/users/login`, datos)
       .then((response) => {
         console.log(response.data);
         login({
