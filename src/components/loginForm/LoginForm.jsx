@@ -16,7 +16,7 @@ export default function LoginForm() {
 
   const rutaLocal = 'http://localhost:3000';
   const rutaVercel = 'https://maravillas-de-espana-backend.vercel.app'
-  const ruta = rutaVercel;
+  let ruta = rutaVercel;
   if (rutaVercel) {
     ruta = rutaVercel; 
   } else {
