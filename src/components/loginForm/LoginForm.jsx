@@ -4,6 +4,7 @@ import { SessionContext } from "../../contexts/SessionContext";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import "./Login.css";
+require('dotenv').config();
 
 
 export default function LoginForm() {
@@ -14,15 +15,13 @@ export default function LoginForm() {
   } = useForm();
   const { login } = useContext(SessionContext);
 
-  const rutaLocal = 'http://localhost:3000';
-  const rutaVercel = 'https://maravillas-de-espana-backend.vercel.app'
-  let ruta = rutaVercel;
-  if (rutaVercel) {
-    ruta = rutaVercel; 
+  let ruta = '';
+  if (process.env.rutaVercel) {
+    ruta = process.env.rutaVercel; 
   } else {
-    ruta = rutaLocal; 
+    ruta = process.env.rutaLocal; 
   }
-console.log('la ruta del backend es: ', ruta);
+  
   function doLogin(datos) {
     axios
       .post(`${ruta}/api/users/login`, datos)
