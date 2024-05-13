@@ -15,14 +15,15 @@ export default function LoginForm() {
   } = useForm();
   const { login } = useContext(SessionContext);
 
-  let ruta = '';
-  if (process.env.rutaVercel) {
-    ruta = process.env.rutaVercel; 
-  } else {
-    ruta = process.env.rutaLocal; 
-  }
+  
   
   function doLogin(datos) {
+    let ruta = "";
+    if (process.env.REACT_APP_rutaVercel) {
+      ruta = process.env.REACT_APP_rutaVercel;
+    } else {
+      ruta = process.env.REACT_APP_rutaLocal;
+    }
     axios
       .post(`${ruta}/api/users/login`, datos)
       .then((response) => {
