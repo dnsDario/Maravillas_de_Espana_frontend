@@ -14,11 +14,15 @@ export default function LoginForm() {
   } = useForm();
   const { login } = useContext(SessionContext);
 
-  const rutaLocal = 'http://localhost:3000';
+  /* const rutaLocal = 'http://localhost:3000'; */
   const rutaVercel = 'https://maravillas-de-espana-backend.vercel.app'
-  const rutaBackend = rutaVercel;
-  
-console.log('la ruta del backend es: ', rutaBackend);
+  const ruta = rutaVercel;
+  /* if (rutaVercel) {
+    ruta = rutaVercel; 
+  } else {
+    ruta = rutaLocal; 
+  } */
+console.log('la ruta del backend es: ', ruta);
   function doLogin(datos) {
     axios
       .post(`${ruta}/api/users/login`, datos)
