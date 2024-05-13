@@ -4,7 +4,7 @@ import { SessionContext } from "../../contexts/SessionContext";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import "./Login.css";
-require('dotenv').config();
+
 
 
 export default function LoginForm() {
