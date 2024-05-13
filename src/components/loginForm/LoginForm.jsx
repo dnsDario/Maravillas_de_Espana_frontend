@@ -17,7 +17,7 @@ export default function LoginForm() {
   const rutaLocal = 'http://localhost:3000';
   const rutaVercel = 'https://maravillas-de-espana-backend.vercel.app'
   const ruta = rutaVercel || rutaLocal;
-console.log('la ruta del backend es: ',ruta);
+console.log('la ruta del backend es: ', ruta);
   function doLogin(datos) {
     axios
       .post(`${ruta}/api/users/login`, datos)
