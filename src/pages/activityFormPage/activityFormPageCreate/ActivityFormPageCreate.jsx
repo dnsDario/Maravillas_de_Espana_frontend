@@ -20,8 +20,9 @@ const ActivityFormPageCreate = () => {
 	
 	const navigate = useNavigate()
 	const { user } = useContext(SessionContext);
-  const [actividad, setActividad] = useState(actividadVacia);
+  	const [actividad, setActividad] = useState(actividadVacia);
 	const [provincias, setProvincias] = useState([]);
+	const apiRuta = import.meta.env.VITE_REACT_APP_LOCALBACK || import.meta.env.VITE_REACT_APP_VERCELBACK;
 
 	useEffect(() => {
 		obtenerProvincias();
@@ -30,7 +31,7 @@ const ActivityFormPageCreate = () => {
 	async function obtenerProvincias() {
 		const token = user.token
 		axios
-				.get(`http://localhost:3000/api/provincias?token=${token}`)
+				.get(`${apiRuta}/api/provincias?token=${token}`)
 				.then(response => {
 					setProvincias(response.data.provinciasEncontradas);
 				})
@@ -51,7 +52,7 @@ const ActivityFormPageCreate = () => {
 		console.log(actividadPost)
 		const token = user.token;
 		axios
-			.post(`http://localhost:3000/api/actividades?token=${token}`, actividadPost)
+			.post(`${apiRuta}/api/actividades?token=${token}`, actividadPost)
 			.then(response => {
 				Swal.fire({
 					icon: "success",

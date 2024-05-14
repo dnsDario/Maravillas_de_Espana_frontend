@@ -19,9 +19,8 @@ const Activity = () => {
     const [valoracionUsuarios, setValoracionUsuarios] = useState([]);
     const [mediaValoraciones, setMediaValoraciones] = useState(0);
     const [nuevoComentario, setNuevoComentario] = useState({ actividad: id, usuario: user?._id, valoracion: "", comentario: "" })
-
-    /* console.log(user) */
-
+    const apiRuta = import.meta.env.VITE_REACT_APP_LOCALBACK || import.meta.env.VITE_REACT_APP_VERCELBACK;
+    
     /* Actualizar el usuario cuando se recarga la página */
     useEffect(() => {
         setNuevoComentario(actualizarEstado => ({
@@ -34,7 +33,7 @@ const Activity = () => {
     useEffect(() => {
         const getActivityById = async () => {
             if (user?.token) {
-                const resultado = await axios.get(`http://localhost:3000/api/actividades/${id}?token=${user?.token}`)
+                const resultado = await axios.get(`${apiRuta}/api/actividades/${id}?token=${user?.token}`)
                 setActividad(resultado.data.actividadEncontrada)
                 /* console.log(resultado.data.actividadEncontrada) */
             }
@@ -46,23 +45,19 @@ const Activity = () => {
     useEffect(() => {
         const getCommentById = async () => {
             if (user?.token) {
-                const resultado = await axios.get(`http://localhost:3000/api/valoraciones/?actividad=${id}&token=${user?.token}`)
+                const resultado = await axios.get(`${apiRuta}/api/valoraciones/?actividad=${id}&token=${user?.token}`)
                 console.log(resultado)
 
                 const totalValoraciones = resultado.data.valoracionesDeActividadEncontradas.length
-                /* console.log(totalValoraciones) */
                 setValoraciones(totalValoraciones)
 
                 const comentarios = resultado.data.valoracionesDeActividadEncontradas.map(val => val.comentario);
-                /* console.log(comentarios) */
                 setComentarios(comentarios)
 
                 const usuarios = resultado.data.valoracionesDeActividadEncontradas.map(val => val.usuario.name);
-                /* console.log(usuarios) */
                 setUsuarios(usuarios)
 
                 const valoracionUsuarios = resultado.data.valoracionesDeActividadEncontradas.map(val => val.valoracion);
-                /* console.log(valoracionUsuarios) */
                 setValoracionUsuarios(valoracionUsuarios)
 
                 const sumaValoraciones = valoracionUsuarios.reduce((a, b) => a + b, 0);
@@ -92,7 +87,7 @@ const Activity = () => {
         }).then((result) => {
             if (result.isConfirmed) {
                 axios
-                    .delete(`http://localhost:3000/api/actividades/${actividad._id}?token=${user.token}`)
+                    .delete(`${apiRuta}/actividades/${actividad._id}?token=${user.token}`)
                     .then(response => {
                         Swal.fire({
                             icon: "success",
@@ -115,7 +110,7 @@ const Activity = () => {
 
     /* Agregar un nuevo comentario */
     function agregarComentario() {
-        axios.post(`http://localhost:3000/api/valoraciones?token=${user.token}`, nuevoComentario)
+        axios.post(`${apiRuta}/api/valoraciones?token=${user.token}`, nuevoComentario)
             .then((response) => {
                 Swal.fire({
                     position: "center",

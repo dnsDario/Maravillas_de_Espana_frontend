@@ -13,6 +13,8 @@ export default function MyProfile() {
   const [avatarImage, setAvatarImage] = useState(null);
   const fileInputRef = useRef(null);
   const [showPasswordForm, setShowPasswordForm] = useState(false);
+  const apiRuta = import.meta.env.VITE_REACT_APP_LOCALBACK || import.meta.env.VITE_REACT_APP_VERCELBACK;
+
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -44,7 +46,7 @@ export default function MyProfile() {
       });
       if (result.isConfirmed) {
         await axios.delete(
-          `http://localhost:3000/api/users/${userId}?token=${authToken}`
+          `${apiRuta}/api/users/${userId}?token=${authToken}`
         );
         console.log("Usuario eliminado");
         Swal.fire({
@@ -86,7 +88,7 @@ export default function MyProfile() {
       console.log("token: ", authToken, "userid: ", userId);
       // Petición Axios PUT para cambiar la contraseña
       await axios.patch(
-        `http://localhost:3000/api/users/${userId}?token=${authToken}`,
+        `${apiRuta}/api/users/${userId}?token=${authToken}`,
         {
           password,
           nuevaPassword,

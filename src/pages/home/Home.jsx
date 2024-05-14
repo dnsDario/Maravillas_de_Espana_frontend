@@ -27,11 +27,12 @@ const Home = () => {
 	const [provinciasConId, setProvinciasConId] = useState([]);
 	const [comunidadInputDesactivado, setComunidadInputDesactivado] = useState(false);
 	const [provinciaInputDesactivado, setProvinciaInputDesactivado] = useState(false);
+	const apiRuta = import.meta.env.VITE_REACT_APP_LOCALBACK || import.meta.env.VITE_REACT_APP_VERCELBACK;
 
 	useEffect(() => {
 		const token = user.token;
 		axios
-			.get(`http://localhost:3000/api/provincias?token=${token}`)
+			.get(`${apiRuta}/api/provincias?token=${token}`)
 			.then(response => {
 				const provinciasConId = response.data.provinciasEncontradas.map(prov => {
 					return prov;
@@ -150,7 +151,7 @@ const Home = () => {
 		}).then(result => {
 			if (result.isConfirmed) {
 				axios
-					.delete(`http://localhost:3000/api/actividades/${actividad._id}?token=${token}`)
+					.delete(`${apiRuta}/api/actividades/${actividad._id}?token=${token}`)
 					.then(response => {
 						setActividades(actividades.filter(act => act._id !== actividad._id));
 						Swal.fire({
@@ -186,36 +187,38 @@ const Home = () => {
 
 	function textoBusqueda(){
 		return (
-					<>
-						<h2>
-							{`Los mejores planes
+      <>
+        <h2>
+          {`Los mejores planes
                         ${
-													busqueda.tipo === "rural"
-														? " rurales"
-														: busqueda.tipo === "ciudad"
-														? " de ciudad"
-														: ""
-												}
-												${
-													(busqueda.comunidad !== "" || busqueda.provincia !== "")
-														? " en:" :""
-												}
-                        ${busqueda.provincia !== "" ? ` ${busqueda.provincia}` : ""}${
-													busqueda.comunidad !== ""
-														? busqueda.provincia !==""
-															? `, ${busqueda.comunidad}`
-															: ` ${busqueda.comunidad}`
-														: ""
-												}`}
-						</h2>
-					</>
-				)
+						busqueda.tipo === "rural"
+						? " rurales"
+						: busqueda.tipo === "ciudad"
+						? " de ciudad"
+						: ""
+                        }
+						${busqueda.comunidad !== "" || busqueda.provincia !== "" ? " en:" : ""}
+                        ${
+						busqueda.provincia !== ""
+						? ` ${busqueda.provincia}`
+						: ""
+                        }
+						${
+						busqueda.comunidad !== ""
+							? busqueda.provincia !== ""
+							? `, ${busqueda.comunidad}`
+							: ` ${busqueda.comunidad}`
+							: ""
+            }`}
+        </h2>
+      </>
+    );
 	}
 
 	async function buscarActividades(tipo, comunidad, provincia) {
 		const token = user.token;
 		axios
-			.get(`http://localhost:3000/api/actividades?token=${token}`, {
+			.get(`${apiRuta}/api/actividades?token=${token}`, {
 				params: { comunidad: comunidad, provincia: provincia, tipo: tipo },
 			})
 			.then(response => {

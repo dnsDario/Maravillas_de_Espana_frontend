@@ -13,10 +13,12 @@ export default function RatingProfile() {
   const [mostrarBotonVolver, setMostrarBotonVolver] = useState(false);
   const navigate = useNavigate();
 
+  const apiRuta = import.meta.env.VITE_REACT_APP_LOCALBACK || import.meta.env.VITE_REACT_APP_VERCELBACK
+
   const fetchValoraciones = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/valoraciones?usuario=${user._id}`
+        `${apiRuta}/api/valoraciones?usuario=${user._id}`
       );
       setValoraciones(response.data.valoracionesDeUsuarioEncontradas);
       setLoading(false);

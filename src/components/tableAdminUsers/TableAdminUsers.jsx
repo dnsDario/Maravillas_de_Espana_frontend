@@ -10,10 +10,11 @@ export default function TableAdminUsers() {
   const { user } = useContext(SessionContext);
   const [users, setUsers] = useState([]);
   const [filtradosUsers, setFiltradosUsers] = useState([]);
-
+  const apiRuta = import.meta.env.VITE_REACT_APP_LOCALBACK || import.meta.env.VITE_REACT_APP_VERCELBACK;
+  
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/api/users?token=${user.token || ""}`)
+      .get(`${apiRuta}/api/users?token=${user.token || ""}`)
       .then((response) => {
         console.log("tablausers", response)
         const foundUsers = response.data.usuariosEncontrados.map((user) => ({

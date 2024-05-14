@@ -8,7 +8,6 @@ const Landing = () => {
 		<>
 			<Carrusel className='Carrusel'></Carrusel>
 			<CiudadLanding></CiudadLanding>
-
 		</>
 	);
 };

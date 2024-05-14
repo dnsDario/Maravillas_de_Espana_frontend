@@ -30,10 +30,12 @@ const ActivityForm = ({ actividad, setActividad, onGuardar, onEditar }) => {
 		obtenerProvincias();
 	}, []);
 
+	const apiRuta = import.meta.env.VITE_REACT_APP_LOCALBACK || import.meta.env.VITE_REACT_APP_VERCELBACK;
+
 	async function obtenerProvincias() {
 		const token = user.token;
 		axios
-			.get(`http://localhost:3000/api/provincias?token=${token}`)
+			.get(`${apiRuta}/api/provincias?token=${token}`)
 			.then(response => {
 				setProvincias(response.data.provinciasEncontradas);
 			})

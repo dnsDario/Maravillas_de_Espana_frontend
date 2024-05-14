@@ -10,6 +10,7 @@ import "./SignupForm.css";
 export default function SignupForm() {
   const [datos, setDatos] = useState({ email: "", password: "", name: "" });
   const navigate = useNavigate();
+  const apiRuta = import.meta.env.VITE_REACT_APP_LOCALBACK || import.meta.env.VITE_REACT_APP_VERCELBACK
 
   function onSignup() {
     // Verifica si las contraseñas coinciden
@@ -59,7 +60,7 @@ export default function SignupForm() {
     }
 
     axios
-      .post("http://localhost:3000/api/users/registrar", datos)
+      .post(`${apiRuta}/api/users/registrar`, datos)
       .then((response) => {
         navigate("/login");
       })

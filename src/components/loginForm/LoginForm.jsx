@@ -15,7 +15,7 @@ export default function LoginForm() {
   } = useForm();
   const { login } = useContext(SessionContext);
   
-  const apiRuta = /* import.meta.env.NODE_ENV === 'production' ? */import.meta.env.VITE_REACT_APP_VERCELBACK || import.meta.env.VITE_REACT_APP_LOCALBACK
+  const apiRuta =  import.meta.env.VITE_REACT_APP_LOCALBACK || import.meta.env.VITE_REACT_APP_VERCELBACK;
   
   function doLogin(datos) {
     axios

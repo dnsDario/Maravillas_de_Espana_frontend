@@ -21,6 +21,8 @@ const ActivityFormPageEdit = () => {
 	const { user } = useContext(SessionContext);
   const { id } = useParams();
   const [actividad, setActividad] = useState(actividadVacia);
+  const apiRuta = import.meta.env.VITE_REACT_APP_LOCALBACK || import.meta.env.VITE_REACT_APP_VERCELBACK;
+
   const navigate = useNavigate()
     useEffect(() => {
       getActivityById();
@@ -28,7 +30,7 @@ const ActivityFormPageEdit = () => {
 
     const getActivityById = async () => {
       const token = user.token
-      const resultado = await axios.get(`http://localhost:3000/api/actividades/${id}?token=${token}`);
+      const resultado = await axios.get(`${apiRuta}/api/actividades/${id}?token=${token}`);
       setActividad({
         ...resultado.data.actividadEncontrada,
         provincia: resultado.data.actividadEncontrada.provincia.nombre,
@@ -50,7 +52,7 @@ const ActivityFormPageEdit = () => {
           let actividadPut = actividad;
           actividadPut.provincia = actividad.provincia._id
           axios
-						.put(`http://localhost:3000/api/actividades/${actividad._id}?token=${token}`, actividadPut)
+						.put(`${apiRuta}/api/actividades/${actividad._id}?token=${token}`, actividadPut)
 						.then(response => {
 							Swal.fire({
 								icon: "success",

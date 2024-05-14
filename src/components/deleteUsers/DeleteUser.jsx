@@ -8,9 +8,11 @@ import { SessionContext } from  "../../contexts/SessionContext"
 export default function DeleteUsers() {
   const { user } = useContext(SessionContext);
   const [id, setId] = useState("");
+
+  const apiRuta = import.meta.env.VITE_REACT_APP_LOCALBACK || import.meta.env.VITE_REACT_APP_VERCELBACK;
   
   function deleteUser(id){  
-    let routeDeleteUserById = `http://localhost:3000/api/users/${id}?token=${user.token}`;
+    let routeDeleteUserById = `${apiRuta}/api/users/${id}?token=${user.token}`;
     console.log ('esta es la ruta delete',routeDeleteUserById)
     axios.delete(routeDeleteUserById)
       .then((response) => {
