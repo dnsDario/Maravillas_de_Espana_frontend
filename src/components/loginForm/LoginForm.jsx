@@ -14,13 +14,12 @@ export default function LoginForm() {
     formState: { errors },
   } = useForm();
   const { login } = useContext(SessionContext);
-
   
+  const apiRuta = import.meta.env.NODE_ENV === 'production' ? import.meta.env.VITE_REACT_APP_VERCELBACK : import.meta.env.VITE_REACT_APP_LOCALBACK
   
   function doLogin(datos) {
-    let ruta = process.env.REACT_APP_rutaVercel || process.env.REACT_APP_rutaLocal || 'http://localhost:3000';
     axios
-      .post(`${ruta}/api/users/login`, datos)
+      .post(`${apiRuta}/api/users/login`, datos)
       .then((response) => {
         console.log(response.data);
         login({
