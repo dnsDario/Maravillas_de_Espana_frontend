@@ -164,7 +164,7 @@ const Activity = () => {
                     }
 
                     <div className="localizacion">
-                        <img className="mapa-punto" src="../../../assets/map_pointer.svg" alt="pointer" />
+                        <img className="mapa-punto" src="/map_pointer.svg" alt="pointer" />
                         <p className="prov-com">{actividad?.provincia?.nombre}, {actividad?.comunidad}</p>
                     </div>
                     <div className='bandera-container'>
