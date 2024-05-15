@@ -35,7 +35,6 @@ const Activity = () => {
             if (user?.token) {
                 const resultado = await axios.get(`${apiRuta}/api/actividades/${id}?token=${user?.token}`)
                 setActividad(resultado.data.actividadEncontrada)
-                /* console.log(resultado.data.actividadEncontrada) */
             }
         }
         getActivityById()
@@ -210,8 +209,8 @@ const Activity = () => {
                         <label htmlFor="valoracion">¿Qué te ha parecido?</label>
                         <Rating
                             className='form-estrellas'
-                            offIcon={<img className='offIcon-star' src={"../../../assets/star_regular.svg"} alt="" width="25px" height="25px" />}
-                            onIcon={<img className='onIcon-star' src={"../../../assets/star_solid.svg"} alt="" width="25px" height="25px" />}
+                            offIcon={<img className='offIcon-star' src={"/star_regular.svg"} alt="" width="25px" height="25px" />}
+                            onIcon={<img className='onIcon-star' src={"/star_solid.svg"} alt="" width="25px" height="25px" />}
                             value={nuevoComentario.valoracion}
                             onChange={(e) => setNuevoComentario({ ...nuevoComentario, valoracion: e.target.value })}
                             cancel={false}
