@@ -69,7 +69,7 @@ export default function LoginForm() {
                 <div className="form-floating mb-2">
                   <input
                     type="password"
-                    {...register("password", { required: true, minLength: 8 })}
+                    {...register("password", { required: true, minLength: 4 })}
                     className="form-control"
                     id="floatingInputValue"
                   />
@@ -80,7 +80,7 @@ export default function LoginForm() {
                     <p className="errors_login">La contraseña es obligatoria</p>
                   )}
                   {errors.password?.type === "minLength" && (
-                    <p className="errors_login">La contraseña debe tener 8 caracteres como mínimo</p>
+                    <p className="errors_login">La contraseña debe tener 4 caracteres como mínimo</p>
                   )}
                 </div>
                 <br></br>

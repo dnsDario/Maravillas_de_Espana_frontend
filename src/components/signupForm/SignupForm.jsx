@@ -8,7 +8,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./SignupForm.css";
 
 export default function SignupForm() {
-  const [datos, setDatos] = useState({ email: "", password: "", name: "" });
+  const [datos, setDatos] = useState({ email: "", password: "", name: "", repetirPassword: "" });
   const navigate = useNavigate();
   const apiRuta = import.meta.env.VITE_REACT_APP_LOCALBACK || import.meta.env.VITE_REACT_APP_VERCELBACK
 
@@ -16,29 +16,36 @@ export default function SignupForm() {
     // Verifica si las contraseñas coinciden
     if (datos.password !== datos.repetirPassword) {
       console.log("Las contraseñas no coinciden");
-      // Mostrar alerta con SweetAlert2
       Swal.fire({
         icon: "error",
         title: "Error",
         text: "Las contraseñas no coinciden",
         confirmButtonText: "Aceptar",
       });
-
-      return; // Detiene la función si las contraseñas no coinciden
+      return;
     }
+    // Validación adicional para la contraseña
+    if (datos.password.length < 4 || !/[!@#$%^&*(),.?":{}|<>]/.test(datos.password)) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "La contraseña debe tener al menos 4 caracteres y contener al menos un carácter especial.",
+        confirmButtonText: "Aceptar",
+      });
+      return;
+    }
+    // Verifica si el email es válido
     if (datos.email === "" || datos.password === "") {
       console.log("El email está vacío");
-      // Mostrar alerta con SweetAlert2
       Swal.fire({
         icon: "warning",
         title: "",
         text: "Falta datos por indicar",
         confirmButtonText: "Aceptar",
       });
-      return; // Detiene la función si el email está vacío
+      return;
     } else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(datos.email)) {
       console.log("El email no sigue el formato requerido");
-      // Mostrar alerta con SweetAlert2
       Swal.fire({
         icon: "error",
         title: "",
@@ -49,14 +56,13 @@ export default function SignupForm() {
     }
     if (datos.name === "") {
       console.log("El nombre está vacío");
-      // Mostrar alerta con SweetAlert2
       Swal.fire({
         icon: "info",
         title: "",
         text: "Falta indicar nombre",
         confirmButtonText: "Aceptar",
       });
-      return; // Detiene la función si el email está vacío
+      return; 
     }
 
     axios
@@ -126,8 +132,8 @@ export default function SignupForm() {
                     <InputValidation
                       rules={[
                         {
-                          text: "longitud menor que 8",
-                          fn: (p) => p.length >= 8,
+                          text: "longitud menor que 4",
+                          fn: (p) => p.length >= 4,
                         },
                         {
                           text: "contiene al menos un carácter especial",
